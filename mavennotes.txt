@@ -1,0 +1,148 @@
+Theory of Employee Management System using JDBC (DAO, Service, Controller)
+1. Introduction
+
+This project is based on JDBC (Java Database Connectivity).
+It follows the 3-layered architecture:
+
+DAO Layer (Data Access Object) – Direct interaction with database.
+
+Service Layer – Business logic and validations.
+
+Controller Layer – Takes user input, calls service methods, and shows output.
+
+This design pattern makes the code clean, reusable, and maintainable.
+
+2. DAO Layer (Data Access Object)
+
+📂 com.dao.Employee_Dao
+
+Purpose: To connect Java with MySQL database and perform CRUD operations.
+
+Key Methods:
+
+Connect() → Establishes connection with MySQL using DriverManager.
+
+Insertdata(id, name, city) → Inserts a new employee record.
+
+Deletedata(id) → Deletes employee by ID.
+
+SelectAlldata() → Fetches all employee records.
+
+SelectData() → Fetches one employee by ID.
+
+Upadatedata() → Updates employee details.
+
+👉 In DAO layer we always use PreparedStatement (instead of Statement) because:
+
+Prevents SQL Injection.
+
+Better performance for repeated queries.
+
+Easy to set parameters (setInt(), setString() etc.).
+
+3. Service Layer
+
+📂 com.service.EmployeeService
+
+Purpose: Acts as a bridge between Controller and DAO.
+
+Responsibilities:
+
+Validate data before sending to DAO.
+
+Call DAO methods.
+
+Handle exceptions gracefully.
+
+Example:
+
+If user enters negative ID → Service can check and stop invalid data from going to database.
+
+If DAO throws exception → Service catches and shows a proper error message.
+
+👉 This layer makes the code flexible (Business logic can change without touching DAO).
+
+4. Controller Layer
+
+📂 com.controller.EmployeeController
+
+Purpose: Handles user interaction (like UI).
+
+Uses Scanner to take input from user.
+
+Displays a menu:
+
+Add Employee
+
+Delete Employee
+
+Find Employee
+
+List All Employees
+
+Update Employee
+
+Exit
+
+Calls Service methods according to user’s choice.
+
+Example:
+
+If user selects option 1 → Controller asks for id, name, city → Passes it to service.addEmployee() → Which calls DAO → Data is stored in MySQL.
+
+5. Flow of Data (Step by Step)
+
+User chooses option from Controller.
+
+Controller sends request to Service Layer.
+
+Service validates input and calls DAO Layer.
+
+DAO executes SQL query in MySQL database.
+
+Result travels back from DAO → Service → Controller → User.
+
+6. Advantages of This Design
+
+✅ Clean separation of concerns (each layer has its own role).
+✅ Easy to maintain and update code.
+✅ Service layer makes the system more secure (validation).
+✅ Reusability of DAO methods.
+✅ Professional coding practice (used in real projects).
+
+7. Technologies Used
+
+Java (JDK)
+
+MySQL Database
+
+JDBC API (Connection, PreparedStatement, ResultSet)
+
+
+
+
+⚡ Flow of MVC
+
+Controller → takes user input (ID, Name, City, etc.).
+
+Service → validates input & calls DAO.
+
+DAO → executes SQL queries in MySQL.
+
+Output → goes back to Service → then printed by Controller.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
